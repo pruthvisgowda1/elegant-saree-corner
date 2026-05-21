@@ -311,4 +311,8 @@ export default function ElegantSareeCorner() {
       </footer>
     </div>
   );
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> d40379c (Initial Elegant Saree Corner website-new)
