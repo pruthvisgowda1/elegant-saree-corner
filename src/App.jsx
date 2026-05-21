@@ -1,4 +1,18 @@
+import { useState } from 'react';
+
 export default function ElegantSareeCorner() {
+  const [uploadedImages, setUploadedImages] = useState([]);
+
+  const handleImageUpload = (event) => {
+    const files = Array.from(event.target.files);
+
+    const imageUrls = files.map((file) => ({
+      name: file.name,
+      url: URL.createObjectURL(file),
+    }));
+
+    setUploadedImages((prev) => [...prev, ...imageUrls]);
+  };
   const sarees = [
     {
       name: 'Premium Cotton Saree',
@@ -149,12 +163,32 @@ export default function ElegantSareeCorner() {
             <input
               type="file"
               multiple
+              accept="image/*"
+              onChange={handleImageUpload}
               className="mb-6 block mx-auto"
             />
 
             <button className="bg-pink-700 text-white px-8 py-3 rounded-2xl hover:bg-pink-800 transition shadow-lg">
-              Upload Images
+              Images Selected
             </button>
+
+            {uploadedImages.length > 0 && (
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-8">
+                {uploadedImages.map((image, index) => (
+                  <div
+                    key={index}
+                    className="bg-pink-50 rounded-2xl overflow-hidden shadow"
+                  >
+                    <img
+                      src={image.url}
+                      alt={image.name}
+                      className="h-48 w-full object-cover"
+                    />
+                    <p className="p-2 text-sm truncate">{image.name}</p>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </section>
